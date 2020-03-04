@@ -34,7 +34,7 @@ def main():
             data = json.load(read_file)
 
             # Debugging print statement
-            json_print(data)
+            #json_print(data)
 
             # TODO: Filter through the data for:
             '''
@@ -48,6 +48,10 @@ def main():
             "username": "VALUE",
             "password": "VALUE"
             '''
+            
+            for element in data['items']:
+                print(element['login'])
+
 
     else:
         print(f'Supplied input file {args.i} does not exist or we might not have permission to see it. Please try again.')
