@@ -39,11 +39,13 @@ def main():
             "username": "VALUE",
             "password": "VALUE"
             '''
-          
+            
             # Initializing empty lists before looping through json file
             usernames = []
             passwords = []
             urls = []
+            names = []
+
             for element in data['items']:
 
                 # element is a nested dictionary object
@@ -63,6 +65,8 @@ def main():
                 except TypeError:
                     urls.append('None')
                     continue
+                
+                # TODO: Get entry names from the json file
 
             # Debugging print, two newlines for readability 
             print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n')
