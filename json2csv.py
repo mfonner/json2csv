@@ -48,9 +48,26 @@ def main():
             "username": "VALUE",
             "password": "VALUE"
             '''
-            
+          
+            # Initializing empty lists before looping through json file
+            usernames = []
+            passwords = []
             for element in data['items']:
-                print(element['login'])
+
+                # element is a nested dictionary object
+                # This line get's the values for the 'login' key
+                # Then, it gets the values for the username key
+                # Finally, it appends the username to the list created above
+                usernames.append(element.get('login', {}).get('username'))
+
+                # Do the same for passwords
+                passwords.append(element.get('login', {}).get('password'))
+
+                # TODO: Get URLs
+
+            # Debugging prints
+            print(usernames)
+            print(passwords)
 
 
     else:
