@@ -33,18 +33,15 @@ def main():
         with open(args.i, 'r') as read_file:
             data = json.load(read_file)
 
-            # Debugging print statement
-            #json_print(data)
-
             # TODO: Filter through the data for:
             '''
-	    "login": {
-        	"uris": [
-          	{
-            	"match": null,
-            	"uri": "URL HERE"
-          	}
-        	],
+	        "login": {
+        	    "uris": [
+          	    {
+            	        "match": null,
+            	        "uri": "URL HERE"
+          	    }
+                ],
             "username": "VALUE",
             "password": "VALUE"
             '''
@@ -52,6 +49,7 @@ def main():
             # Initializing empty lists before looping through json file
             usernames = []
             passwords = []
+            urls = []
             for element in data['items']:
 
                 # element is a nested dictionary object
@@ -64,10 +62,9 @@ def main():
                 passwords.append(element.get('login', {}).get('password'))
 
                 # TODO: Get URLs
-
-            # Debugging prints
-            print(usernames)
-            print(passwords)
+                # It appears that .get('uris') returns a list
+                # Need to find a way to get the 'uri' value from that
+                print(element.get('login', {}).get('uris', {}).get('uri'))
 
 
     else:
