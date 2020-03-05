@@ -66,10 +66,10 @@ def main():
                     urls.append('None')
                     continue
                 
-                # TODO: Get entry names from the json file
+                names.append(element['name'])
 
             # Debugging print, two newlines for readability 
-            print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n')
+            print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n {names}')
 
             # TODO: take lists created and create a csv
 
