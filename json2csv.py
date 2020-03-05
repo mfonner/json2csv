@@ -19,12 +19,6 @@ parser.add_argument('-o',
 args = parser.parse_args()
 
 
-def json_print(obj):
-    
-    # Prints json neatly
-    print(json.dumps(obj, indent=4, sort_keys=True))
-
-
 def main():
 
     # Checking if the supplied json file exists
@@ -33,7 +27,7 @@ def main():
         with open(args.i, 'r') as read_file:
             data = json.load(read_file)
 
-            # TODO: Filter through the data for:
+            # Here's the json data structure that Bitwarden provides 
             '''
 	        "login": {
         	    "uris": [
@@ -72,6 +66,8 @@ def main():
 
             # Debugging print, two newlines for readability 
             print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n')
+
+            # TODO: take lists created and create a csv
 
     else:
         print(f'Supplied input file {args.i} does not exist or we might not have permission to see it. Please try again.')
