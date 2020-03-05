@@ -61,11 +61,17 @@ def main():
                 # Do the same for passwords
                 passwords.append(element.get('login', {}).get('password'))
 
-                # TODO: Get URLs
-                # It appears that .get('uris') returns a list
-                # Need to find a way to get the 'uri' value from that
-                print(element.get('login', {}).get('uris', {}).get('uri'))
+                # .get('uris') returns a list containing a dictionary
+                # This handles that as well as the NoneType error that is thrown
+                try:
+                    for item in element.get('login', {}).get('uris'):
+                        urls.append(item['uri'])
+                except TypeError:
+                    urls.append('None')
+                    continue
 
+            # Debugging print, two newlines for readability 
+            print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n')
 
     else:
         print(f'Supplied input file {args.i} does not exist or we might not have permission to see it. Please try again.')
