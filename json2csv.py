@@ -69,9 +69,22 @@ def main():
                 names.append(element['name'])
 
             # Debugging print, two newlines for readability 
-            print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n {names}')
+            #print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n {names}\n\n') 
 
-            # TODO: take lists created and create a csv
+            # Start the csv writing process. 
+            fields = ['name', 'username', 'password', 'url']
+            # Zipping the rows to write them as columns
+            rows = zip(names, usernames, passwords, urls)
+
+            # This works, however, it gets out of order
+            # This is due to non-password fields such as secure notes, etc.
+            # TODO: Fix this. 
+            # Hint to future me: they have no login field)
+            with open(args.o, 'w') as write_file:
+                writer = csv.writer(write_file)
+                writer.writerow(fields)
+                for row in rows:
+                    writer.writerow(row)
 
     else:
         print(f'Supplied input file {args.i} does not exist or we might not have permission to see it. Please try again.')
