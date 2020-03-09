@@ -48,25 +48,31 @@ def main():
 
             for element in data['items']:
 
-                # element is a nested dictionary object
-                # This line get's the values for the 'login' key
-                # Then, it gets the values for the username key
-                # Finally, it appends the username to the list created above
-                usernames.append(element.get('login', {}).get('username'))
+                # Type 1 is a password entry, Type 2 would be a secure note
+                # Generated on mobile is a remnant from LastPass, can skip those
+                # Backblaze entry has two urls, TODO: handle that
+                if element['type'] == 1 and element['name'] != 'Generated Password on Mobile Device': 
 
-                # Do the same for passwords
-                passwords.append(element.get('login', {}).get('password'))
+                    # element is a nested dictionary object
+                    # This line get's the values for the 'login' key
+                    # Then, it gets the values for the username key
+                    # Finally, it appends the username to the list created above
+                    usernames.append(element.get('login', {}).get('username'))
 
-                # .get('uris') returns a list containing a dictionary
-                # This handles that as well as the NoneType error that is thrown
-                try:
-                    for item in element.get('login', {}).get('uris'):
-                        urls.append(item['uri'])
-                except TypeError:
-                    urls.append('None')
-                    continue
-                
-                names.append(element['name'])
+                    # Do the same for passwords
+                    passwords.append(element.get('login', {}).get('password'))
+
+                    # .get('uris') returns a list containing a dictionary
+                    # This handles that as well as the NoneType error that is thrown
+                    try:
+                        for item in element.get('login', {}).get('uris'):
+                            urls.append(item['uri'])
+
+                    except TypeError:
+                        urls.append('None')
+                        continue
+                        
+                    names.append(element['name'])
 
             # Debugging print, two newlines for readability 
             #print(f'{usernames}\n\n {passwords}\n\n {urls}\n\n {names}\n\n') 
@@ -77,9 +83,10 @@ def main():
             rows = zip(names, usernames, passwords, urls)
 
             # This works, however, it gets out of order
-            # This is due to non-password fields such as secure notes, etc.
-            # TODO: Fix this. 
-            # Hint to future me: they have no login field)
+            # This is due to an entry having more than one url saved 
+            # TODO: fix this 
+            # This was towards the end of my list, 
+            # so I edited the last few by hand 
             with open(args.o, 'w') as write_file:
                 writer = csv.writer(write_file)
                 writer.writerow(fields)
