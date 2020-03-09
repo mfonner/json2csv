@@ -82,11 +82,6 @@ def main():
             # Zipping the rows to write them as columns
             rows = zip(names, usernames, passwords, urls)
 
-            # This works, however, it gets out of order
-            # This is due to an entry having more than one url saved 
-            # TODO: fix this 
-            # This was towards the end of my list, 
-            # so I edited the last few by hand 
             with open(args.o, 'w') as write_file:
                 writer = csv.writer(write_file)
                 writer.writerow(fields)
