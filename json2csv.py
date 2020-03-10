@@ -48,10 +48,9 @@ def main():
 
             for element in data['items']:
 
-                # Type 1 is a password entry, Type 2 would be a secure note
-                # Generated on mobile is a remnant from LastPass, can skip those
-                # Backblaze entry has two urls, TODO: handle that
-                if element['type'] == 1 and element['name'] != 'Generated Password on Mobile Device': 
+                # Type 1 is a website password entry, Type 2 would be a secure note
+                # This script, for now, only handles website passwords
+                if element['type'] == 1: 
 
                     # element is a nested dictionary object
                     # This line get's the values for the 'login' key
@@ -64,6 +63,7 @@ def main():
 
                     # .get('uris') returns a list containing a dictionary
                     # This handles that as well as the NoneType error that is thrown
+                    # TODO: Handle more than one url
                     try:
                         for item in element.get('login', {}).get('uris'):
                             urls.append(item['uri'])
